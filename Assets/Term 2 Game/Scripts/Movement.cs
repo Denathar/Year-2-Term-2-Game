@@ -13,16 +13,11 @@ public class Movement : MonoBehaviour
     public float InitailSpeed = 6.0f;
     public float finalSpeed;
     public float gravity = 20.0f;
-
     public Vector3 moveDirection = Vector3.zero;
     public Vector3 TurnDirection = Vector3.zero;
-
-
     public float Horizontal;
     public float InverseHorizontal;
-
     public bool Blocking;
-
 
     void Start()
     {
@@ -30,19 +25,14 @@ public class Movement : MonoBehaviour
         moveDirection = new Vector3(0f,0f,1f);
         InitailSpeed = speed;
     }
-
     void Update()
     {
         Horizontal = Input.GetAxis("Horizontal");
         InverseHorizontal = -Horizontal;
-        //InverseHorizontal = Input.GetAxis("Horizontal");
-
         finalSpeed = speed;
-
         moveDirection = transform.TransformDirection(new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical")));
         moveDirection *= finalSpeed;
         moveDirection.y -= gravity * Time.deltaTime;
-
         if (Input.GetButtonDown("A Button"))
         {
             speed = runSpeed;
@@ -51,8 +41,6 @@ public class Movement : MonoBehaviour
         {
             speed = InitailSpeed;
         }
-
-
         characterController.Move(moveDirection * Time.deltaTime);
         TurnDirection = new Vector3(Input.GetAxis("Mouse X"), 0.0f, 0.0f);
         Vector3 characterRotation = Player.transform.rotation.eulerAngles;
@@ -65,7 +53,6 @@ public class Movement : MonoBehaviour
             characterRotation.y = characterRotation.y + TurnDirection.x * 200.0f * Time.deltaTime;
         }
         Player.transform.rotation = Quaternion.Euler(characterRotation);
-
         if (Blocking == false)
         {
             characterAnimator.SetFloat("Speed-x", Input.GetAxis("Horizontal"));

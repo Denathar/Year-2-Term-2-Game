@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class HealthScript : MonoBehaviour
 {
+
     public bool IsPlayer;
     public Slider HealthBar;
     public int health;
@@ -33,18 +34,47 @@ public class HealthScript : MonoBehaviour
     public GameObject canvas;
     public GameObject enemymesh;
     public GameObject enemy;
- 
+    public bool GrantsVictory = false;
+    public GameObject Center;
+    public GameObject VictoryScreen;
+    
+
+
     private void Start()
     {
         Player = gameObject;
         RootPlayer = GameObject.FindGameObjectWithTag("Player");
 
+        animators = GetComponentsInChildren<Animator>();
 
     }
     public void Update()
     {
         //base.Update();
         HealthBar.value = (float)currentHealth / (float)health;
+
+        if (IsPlayer == true)
+        {
+            foreach (Animator animator in animators)
+            {
+                animator.SetFloat("NormalizedTime", (float)currentHealth / health);
+                animator.SetBool("IsPlayer", true);
+            }
+
+
+        }
+        else
+        {
+            foreach (Animator animator in animators)
+            {
+                if(animators[0] != null)
+                {
+                    animator.SetBool("IsPlayer", false);
+                }
+                
+            }
+
+        }
 
         if (currentHealth <= 0)
         {
@@ -99,7 +129,11 @@ public class HealthScript : MonoBehaviour
             }
             if (IsPlayer == false)
             {
-                gameObject.GetComponent<NavMesh>().Attacking = true;
+                if (gameObject.GetComponent<NavMesh>() != null)
+                {
+                    gameObject.GetComponent<NavMesh>().Attacking = true;
+                }
+                
             }
             
         } 
@@ -129,7 +163,11 @@ public class HealthScript : MonoBehaviour
         }
         foreach (Animator animator in animators)
         {
-            animator.enabled = true;
+            if (animators[0] != null)
+            {
+                animator.enabled = true;
+            }
+            
         }
         if (colider != null)
         {
@@ -145,9 +183,25 @@ public class HealthScript : MonoBehaviour
         }
         if (enemy != null)
         {
-            enemy.GetComponent<NavMesh>().enabled = false;
-        }
+            if(enemy.GetComponent<NavMesh>() != null)
+            {
+                enemy.GetComponent<NavMesh>().enabled = false;
+            }
+            if (enemy.GetComponent<SimpleAIMove>() != null)
+            {
+                enemy.GetComponent<SimpleAIMove>().enabled = false;
+            }
+            enemy.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
 
+        }
+        if (Center == null)
+        {
+            if (GrantsVictory == true)
+            {
+                VictoryScreen.SetActive(true);
+            }
+        }
+        
 
 
     }

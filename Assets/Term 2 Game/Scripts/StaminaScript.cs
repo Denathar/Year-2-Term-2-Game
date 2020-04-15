@@ -10,7 +10,6 @@ public class StaminaScript : MonoBehaviour
     public int CurrentStamina;
     public GameObject Player;
     public GameObject Weapon;
-
     public bool StaminaDepleted = false;
     public bool RegenOn;
     public int StaminaRegen = 1;
@@ -18,13 +17,16 @@ public class StaminaScript : MonoBehaviour
     bool TimerOn = true;
     float timer = 0.0f;
 
-
+    public Animator[] animators;
 
     public void Update()
     {
-        //base.Update();
-        StaminaBar.value = (float)CurrentStamina / (float)Stamina;
+        foreach (Animator animator in animators)
+        {
+            animator.SetFloat("NormalizedTime", (float)CurrentStamina / Stamina);
+        }
 
+        StaminaBar.value = (float)CurrentStamina / (float)Stamina;
         if (CurrentStamina == 0)
         {
             StaminaDepleted = true;
@@ -43,11 +45,9 @@ public class StaminaScript : MonoBehaviour
             {
                 StopStaminaRegen();
             }
-
             if (timer >= RegenTime)
             {
                 timer -= RegenTime;
-
                 RegenStamina();
             }
             if (TimerOn == true)
@@ -55,9 +55,6 @@ public class StaminaScript : MonoBehaviour
                 timer += Time.deltaTime;
             }
         }
-
-        
-
     }
     public void RemoveStamina(int amount)
     {
@@ -67,12 +64,10 @@ public class StaminaScript : MonoBehaviour
             timer = -3;
         }
     }
-
     void RegenStamina()
     {
         CurrentStamina += StaminaRegen;
     }
-
     void StopStaminaRegen()
     {
         timer = 0;
