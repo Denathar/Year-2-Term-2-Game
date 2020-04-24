@@ -16,6 +16,8 @@ public class UIManager : MonoBehaviour
     public GameObject PlayerGui;
     public GameObject Player;
     public GameObject PlayerCamera;
+    public AudioSource MegaClick;
+    public AudioSource MinorClick;
     
 
     public bool PauseOn = false;
@@ -146,6 +148,12 @@ public class UIManager : MonoBehaviour
     public void OnPressed()
     {
         Debug.Log("pressed");
+        MegaClick.Play();
+    }
+    public void OnHighLight()
+    {
+        Debug.Log("pressed");
+        MinorClick.Play();
     }
     public void PauseUI()
     {
