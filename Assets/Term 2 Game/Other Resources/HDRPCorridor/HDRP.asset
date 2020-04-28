@@ -46,7 +46,7 @@ MonoBehaviour:
     supportSubsurfaceScattering: 0
     increaseSssSampleCount: 0
     supportVolumetrics: 1
-    increaseResolutionOfVolumetrics: 0
+    increaseResolutionOfVolumetrics: 1
     supportLightLayers: 0
     supportDistortion: 0
     supportTransparentBackface: 1
@@ -55,7 +55,7 @@ MonoBehaviour:
     colorBufferFormat: 74
     supportedLitShaderMode: 1
     supportDecals: 1
-    msaaSampleCount: 2
+    msaaSampleCount: 4
     supportMotionVectors: 1
     supportRuntimeDebugDisplay: 1
     supportDitheringCrossFade: 1
@@ -67,9 +67,9 @@ MonoBehaviour:
       pointCookieSize: 128
       cubeCookieTexArraySize: 16
       planarReflectionProbeCacheSize: 2
-      planarReflectionTextureSize: 1024
+      planarReflectionTextureSize: 64
       reflectionProbeCacheSize: 64
-      reflectionCubemapSize: 256
+      reflectionCubemapSize: 128
       reflectionCacheCompressed: 0
       planarReflectionCacheCompressed: 0
       skyReflectionSize: 256

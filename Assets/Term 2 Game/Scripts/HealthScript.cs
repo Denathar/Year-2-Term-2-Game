@@ -30,7 +30,8 @@ public class HealthScript : MonoBehaviour
     public GameObject RootPlayer;
 
     public Animator[] animators;
-    public Collider colider;
+    public Collider HitBoxcolider;
+    public Collider Damagecolider;
     public GameObject canvas;
     public GameObject enemymesh;
     public GameObject enemy;
@@ -83,60 +84,61 @@ public class HealthScript : MonoBehaviour
         if (currentHealth >= health)
         {
             currentHealth = health;
+
         }
 
-        if (currentHealth >= health)
-        {
-            TimerOn = false;
-            StopHealthRegen();
-        }
 
         if (RegenOn == true)
         {
-            if (currentHealth < health / 2)
+            if (currentHealth >= health / 2)
             {
-                if (timer >= RegenTime)
-                {
-                    timer -= RegenTime;
-
-                    RegenHealth();
-                }
-                if (TimerOn == true)
-                {
-                    timer += Time.deltaTime;
-                }
+                StopHealthRegen();
             }
-            
+            if (timer >= RegenTime)
+            {
+                timer -= RegenTime;
+                RegenHealth();
+            }
+            if (TimerOn == true)
+            {
+                timer += Time.deltaTime;
+            }
+
         }
         
         
 
     }
+    
     public void TakeDamage(int amount)
     {
         if (CanTakeDmg == true)
         {
             currentHealth -= amount;
-            if (RegenOn == true)
-            {
-                TimerOn = false;
-                StopHealthRegen();
-                if (damageRegen != null)
-                {
-                    StopCoroutine(damageRegen);
-                }
-                damageRegen = StartCoroutine(startRegen());
-            }
+            timer = -3;
+
+
             if (IsPlayer == false)
             {
                 if (gameObject.GetComponent<NavMesh>() != null)
                 {
                     gameObject.GetComponent<NavMesh>().Attacking = true;
                 }
-                
+
             }
-            
-        } 
+
+        }
+    }
+
+    void RegenHealth()
+    {
+        currentHealth += HealthRegen;
+
+    }
+
+    void StopHealthRegen()
+    {
+        timer = 0;
     }
 
     public void Die()
@@ -167,11 +169,16 @@ public class HealthScript : MonoBehaviour
             {
                 animator.enabled = true;
             }
-            
+
         }
-        if (colider != null)
+        if (HitBoxcolider != null)
         {
-            colider.enabled = false;
+            HitBoxcolider.enabled = false;
+        }
+        if (Damagecolider != null)
+        {
+            Damagecolider.enabled = false;
+
         }
         if (canvas != null)
         {
@@ -183,7 +190,7 @@ public class HealthScript : MonoBehaviour
         }
         if (enemy != null)
         {
-            if(enemy.GetComponent<NavMesh>() != null)
+            if (enemy.GetComponent<NavMesh>() != null)
             {
                 enemy.GetComponent<NavMesh>().enabled = false;
             }
@@ -201,25 +208,8 @@ public class HealthScript : MonoBehaviour
                 VictoryScreen.SetActive(true);
             }
         }
-        
 
 
-    }
-    void RegenHealth()
-    {
-        currentHealth += HealthRegen;
-    }
 
-    void StopHealthRegen()
-    {
-        timer = 0;
-    }
-
-    IEnumerator startRegen()
-    {
-        yield return new WaitForSeconds(RegenWaitTime);
-        damageRegen = null;
-        TimerOn = true;
-        Debug.Log("HealthRegenStarted");
     }
 }

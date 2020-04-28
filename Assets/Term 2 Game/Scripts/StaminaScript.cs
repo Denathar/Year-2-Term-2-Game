@@ -23,21 +23,25 @@ public class StaminaScript : MonoBehaviour
     {
         foreach (Animator animator in animators)
         {
-            animator.SetFloat("NormalizedTime", (float)CurrentStamina / Stamina);
+            animator.SetFloat("AuraNormalizedTime", (float)CurrentStamina / Stamina);
         }
 
         StaminaBar.value = (float)CurrentStamina / (float)Stamina;
-        if (CurrentStamina == 0)
+        if (CurrentStamina <= 1)
         {
             StaminaDepleted = true;
         }
         if (CurrentStamina < 0)
         {
-            CurrentStamina = 0;
+            CurrentStamina = 1;
         }
         if (CurrentStamina >= 20)
         {
             StaminaDepleted = false;
+        }
+        if (CurrentStamina >= Stamina)
+        {
+            CurrentStamina = Stamina;
         }
         if (RegenOn == true)
         {

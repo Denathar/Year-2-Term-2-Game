@@ -17,6 +17,8 @@ public class TriggerDamagerScript : MonoBehaviour
     private GameObject target;
     public GameObject RootObject;
 
+    public AudioSource HitAudio;
+
     public void Start()
     {
         if (HealingObject == true)
@@ -50,6 +52,7 @@ public class TriggerDamagerScript : MonoBehaviour
                     else
                     {
                         other.gameObject.SendMessage("TakeDamage", damage);
+                        HitAudio.Play();
                     }
                 }
                
