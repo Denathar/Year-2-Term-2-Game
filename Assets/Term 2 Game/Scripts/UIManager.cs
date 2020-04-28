@@ -18,6 +18,9 @@ public class UIManager : MonoBehaviour
     public GameObject PlayerCamera;
     public AudioSource MegaClick;
     public AudioSource MinorClick;
+    public AudioSource Music;
+    public AudioSource VictoryMusic;
+    public AudioSource DeathMusic;
     
 
     public bool PauseOn = false;
@@ -115,7 +118,9 @@ public class UIManager : MonoBehaviour
             if (Player.activeSelf == false)
             {
                 PlayerGui.SetActive(false);
-                DeathScreen.SetActive(true); 
+                DeathScreen.SetActive(true);
+                Music.enabled = false;
+                DeathMusic.enabled = true;
             }
         }
         if (VictoryScreen != null)
@@ -125,6 +130,8 @@ public class UIManager : MonoBehaviour
                 Time.timeScale = 0.0F;
                 PlayerGui.SetActive(false);
                 Player.GetComponent<Movement>().enabled = false;
+                Music.enabled = false;
+                VictoryMusic.enabled = true;
 
             }
         }
@@ -167,7 +174,9 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 0.0F;
         PlayerGui.SetActive(false);
         Player.GetComponent<Movement>().enabled = false;
-        
+        Music.volume = 0.15f;
+
+
     }
     public void PauseInActive()
     {
@@ -185,6 +194,7 @@ public class UIManager : MonoBehaviour
         {
             PlayerGui.SetActive(true);
         }
+        Music.volume = 0.5f;
 
     }
     public void Quit()

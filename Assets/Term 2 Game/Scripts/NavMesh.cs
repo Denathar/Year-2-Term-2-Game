@@ -110,6 +110,11 @@ public class NavMesh : MonoBehaviour
 
     }
 
+    public void Index()
+    {
+        EnemyAttackBehaviour.attackerIndex += 1;
+
+    }
 
   
 

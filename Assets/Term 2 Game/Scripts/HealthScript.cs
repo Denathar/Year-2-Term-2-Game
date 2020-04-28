@@ -38,6 +38,15 @@ public class HealthScript : MonoBehaviour
     public bool GrantsVictory = false;
     public GameObject Center;
     public GameObject VictoryScreen;
+    public AudioSource WoundAudio;
+    public AudioSource WoundAudio2;
+    public AudioSource SwordAudio;
+    public AudioSource DeathAudio;
+    public AudioSource Healing;
+    public AudioSource Block;
+
+
+
     
 
 
@@ -47,6 +56,8 @@ public class HealthScript : MonoBehaviour
         RootPlayer = GameObject.FindGameObjectWithTag("Player");
 
         animators = GetComponentsInChildren<Animator>();
+
+        DeathAudio.enabled = false;
 
     }
     public void Update()
@@ -80,6 +91,8 @@ public class HealthScript : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die();
+            
+            
         }
         if (currentHealth >= health)
         {
@@ -115,19 +128,56 @@ public class HealthScript : MonoBehaviour
         if (CanTakeDmg == true)
         {
             currentHealth -= amount;
-            timer = -3;
+            timer = -5;
 
 
+            if (currentHealth < health)
+            {
+                if (amount > 0)
+                {
+                    if (WoundAudio != null)
+                    {
+                        WoundAudio.Play();
+                    }
+                    if (WoundAudio2 != null)
+                    {
+                        WoundAudio2.Play();
+                    }
+                    if (SwordAudio != null)
+                    {
+                        SwordAudio.Play();
+                    }
+                }
+                else
+                {
+                    Healing.enabled = true;
+
+                }
+            }
+            if (currentHealth == health)
+            {
+
+                Healing.enabled = false;
+            }
             if (IsPlayer == false)
             {
                 if (gameObject.GetComponent<NavMesh>() != null)
                 {
                     gameObject.GetComponent<NavMesh>().Attacking = true;
                 }
-
             }
 
         }
+        else
+        {
+            Block.Play();
+            SwordAudio.Play();
+        }
+    }
+
+    public void StopAudio()
+    {
+        Healing.enabled = false;
     }
 
     void RegenHealth()
@@ -143,6 +193,13 @@ public class HealthScript : MonoBehaviour
 
     public void Die()
     {
+
+        if (DeathAudio != null)
+        {
+            DeathAudio.playOnAwake = true;
+            DeathAudio.enabled = true;
+        }
+
         if (GivesStamina == true)
         {
             HealthScript script = RootPlayer.gameObject.GetComponent<HealthScript>();
@@ -192,7 +249,13 @@ public class HealthScript : MonoBehaviour
         {
             if (enemy.GetComponent<NavMesh>() != null)
             {
+                if (enemy.GetComponent<NavMesh>().enabled == true)
+                {
+                    enemy.GetComponent<NavMesh>().Index();
+                }
                 enemy.GetComponent<NavMesh>().enabled = false;
+                
+
             }
             if (enemy.GetComponent<SimpleAIMove>() != null)
             {

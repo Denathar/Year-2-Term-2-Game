@@ -19,6 +19,9 @@ public class StaminaScript : MonoBehaviour
 
     public Animator[] animators;
 
+    public AudioSource StaminaAudio;
+
+
     public void Update()
     {
         foreach (Animator animator in animators)
@@ -66,7 +69,28 @@ public class StaminaScript : MonoBehaviour
         {
             CurrentStamina -= amount;
             timer = -3;
+
         }
+
+        if (CurrentStamina < Stamina)
+        {
+            if (amount < 0)
+            {
+                StaminaAudio.enabled = true;
+
+            }
+        }
+        if (CurrentStamina == Stamina)
+        {
+            StaminaAudio.enabled = false;
+        }
+
+
+
+    }
+    public void StopAudio()
+    {
+        StaminaAudio.enabled = false;
     }
     void RegenStamina()
     {

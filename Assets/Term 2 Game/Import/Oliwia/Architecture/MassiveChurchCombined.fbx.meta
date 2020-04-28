@@ -3,7 +3,62 @@ guid: 535bfed832ab8ea47ba00c829a4627c0
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TimPattern2Damaged
+    second: {fileID: 2100000, guid: cdc1a4d26904bc4488ee6ac9099c2b55, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TrimBrick
+    second: {fileID: 2100000, guid: 9f0c805cfc0080340bceaf5a3bd7cb25, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TrimBrickDamaged
+    second: {fileID: 2100000, guid: 6c74d52a494e9b040aae0730cfa7202c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TrimPattern1
+    second: {fileID: 2100000, guid: 685de397df4fc244ca02f5509e6c59ae, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TrimPatternPlain2
+    second: {fileID: 2100000, guid: 8c5d5e5d64ffa85448d815f27339cada, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TrimSheet
+    second: {fileID: 2100000, guid: 644c30d6c5856234ab817c753c38b2c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TrimSheetDamaged
+    second: {fileID: 2100000, guid: 199515e38a7cdef40a590650095f516c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TrimSheetOrnamentDamaged
+    second: {fileID: 2100000, guid: 64eb4c63f01b6914ca4389d2c71107c8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TrimSheetOrnaments
+    second: {fileID: 2100000, guid: 805a70ad4098417499a213c47d65f8ae, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wall_Tiling
+    second: {fileID: 2100000, guid: f194495fcd1863f409a4369d98654e99, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: 1da1b8ef0d28a994b9c31078413db751, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

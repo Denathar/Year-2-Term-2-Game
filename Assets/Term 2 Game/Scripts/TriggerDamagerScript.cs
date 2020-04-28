@@ -17,8 +17,6 @@ public class TriggerDamagerScript : MonoBehaviour
     private GameObject target;
     public GameObject RootObject;
 
-    public AudioSource HitAudio;
-
     public void Start()
     {
         if (HealingObject == true)
@@ -52,7 +50,8 @@ public class TriggerDamagerScript : MonoBehaviour
                     else
                     {
                         other.gameObject.SendMessage("TakeDamage", damage);
-                        HitAudio.Play();
+
+
                     }
                 }
                
@@ -91,6 +90,7 @@ public class TriggerDamagerScript : MonoBehaviour
             {
 
                 CancelInvoke("SendDamage");
+                target.gameObject.SendMessage("StopAudio");
 
                 if (HealingObject == true)
                 {
@@ -102,6 +102,7 @@ public class TriggerDamagerScript : MonoBehaviour
             {
 
                 CancelInvoke("SendStaminaDamage");
+                target.gameObject.SendMessage("StopAudio");
 
                 if (HealingObject == true)
                 {
@@ -135,10 +136,15 @@ public class TriggerDamagerScript : MonoBehaviour
             {
                 if (HealthDamage == true)
                 {
-                    if (target.GetComponent<HealthScript>().currentHealth >= target.GetComponent<HealthScript>().health)
+                    if (target.GetComponent<HealthScript>().currentHealth == target.GetComponent<HealthScript>().health)
                     {
                         RootObject.GetComponent<Animator>().SetBool("IsAbsorbing", false);
                         CancelInvoke("SendDamage");
+                    }
+                    if (target.GetComponent<HealthScript>().currentHealth < target.GetComponent<HealthScript>().health)
+                    {
+                        RootObject.GetComponent<Animator>().SetBool("IsAbsorbing", true);
+
                     }
                 } 
             }
@@ -146,10 +152,14 @@ public class TriggerDamagerScript : MonoBehaviour
             {
                 if (StaminaDamage == true)
                 {
-                    if (target.GetComponent<StaminaScript>().CurrentStamina >= target.GetComponent<StaminaScript>().Stamina)
+                    if (target.GetComponent<StaminaScript>().CurrentStamina == target.GetComponent<StaminaScript>().Stamina)
                     {
                         RootObject.GetComponent<Animator>().SetBool("IsAbsorbing", false);
                         CancelInvoke("RemoveStamina");
+                    }
+                    if (target.GetComponent<StaminaScript>().CurrentStamina < target.GetComponent<StaminaScript>().Stamina)
+                    {
+                        RootObject.GetComponent<Animator>().SetBool("IsAbsorbing", true);
                     }
                 }
 

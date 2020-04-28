@@ -13,6 +13,7 @@ public class EnemyAttackBehaviour : MonoBehaviour
 
     void Update()
     {
+
         if (EnemyTransform.Count > 0)
         {
             if (EnemysAttacking == true)
@@ -57,5 +58,4 @@ public class EnemyAttackBehaviour : MonoBehaviour
     {
         EnemyTransform.Clear();
     }
-
 }
